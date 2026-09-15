@@ -8,7 +8,7 @@ zu Neustarts in Schleife. Gluon führt viele dieser Geräte deshalb als
 was man selbst messen kann, steht hier. Wer neu kauft, nimmt ein Gerät mit
 **128 MB oder mehr**.
 
-**Gilt für** Gluon 2023.2 (OpenWrt 23.05, Kernel 5.15). Stand 14.09.2026.
+**Gilt für** Gluon 2023.2 (OpenWrt 23.05, Kernel 5.15). Stand 15.09.2026.
 
 ---
 
@@ -81,6 +81,8 @@ die Paketlisten in
 | `vm.watermark_boost_factor=0`: Der Kernel hebt die Speichergrenzen sonst kurzzeitig um mehrere MB an, und der OOM-Killer schlägt zu früh zu | bis 64 MB |
 | minütliche Jobs in Shell statt Lua (`gluon-state-check`, tunneldigger-Watchdog), weniger Nachladen | alle |
 | ag71xx: leerer RX-Ring ohne `BUG()` | ath79 |
+| kleinere Fragmentpuffer (`ipfrag`/`ip6frag`/`nf_conntrack_frag6`, Backport aus Gluon main) | bis 64 MB |
+| `vm.min_free_kbytes` bleibt beim OpenWrt-Wert **8192**, siehe nächster Abschnitt | bis 64 MB |
 
 **Ergebnisse:**
 
@@ -90,6 +92,75 @@ die Paketlisten in
   Tausender pro Minute.
 * **Cudy WR1000** (mt76): nach dem Update 11 MB MemAvailable, Refaults 0,
   zram praktisch unbenutzt.
+
+## `vm.min_free_kbytes` nicht senken, wenn ath10k im Gerät ist
+
+Naheliegend wäre, auf 64-MB-Geräten weniger Speicher als Reserve
+zurückzuhalten. Gluon main macht das: Commit `a505f767` („gluon-core: adapt
+sysctl for 64M RAM“) mit dem Fix `c6ac8914` senkt `vm.min_free_kbytes` auf
+Geräten mit weniger als 64 MB MemTotal von 8192 (OpenWrt 23.05) auf 2048. Das
+bringt einige MB mehr für den Datei-Cache. **Auf Geräten mit ath10k kostet es
+unter WLAN-Last das 5-GHz-Funkteil.**
+
+**Symptom:** Unter Last auf 5 GHz steht einmal im Kernel-Log
+
+```
+ath10k_pci 0000:00:00.0: rx ring became corrupted: -5
+ath10k_pci 0000:00:00.0: HTC Rx: invalid eid 102
+```
+
+Danach ist 5 GHz tot: keine Nachbarn, kein Empfang, Sendefehler. Es erholt
+sich nicht von selbst, und ein `wifi`-Neustart hilft nicht (das
+Mesh-Interface verschwand dabei ganz). Erst ein Neustart des Geräts bringt
+5 GHz zurück. 2,4 GHz (ath9k) läuft die ganze Zeit weiter, das Gerät bleibt
+erreichbar. Deshalb fällt es im Betrieb leicht nicht auf.
+
+**Ursache:** ath10k füllt seine RX-DMA-Puffer im Interrupt nach, mit
+`GFP_ATOMIC`. Solche Anforderungen dürfen nicht warten, bis Speicher
+freigeräumt ist; sie leben von der Reserve, deren Größe `min_free_kbytes`
+bestimmt. Mit 2048 ist die Reserve so klein, dass das Nachfüllen unter Last
+scheitert, und der Ring geht kaputt.
+
+**Gemessen** an einem TP-Link Archer C25 v1 (QCA9561 + QCA9887) mit Gluon
+2023.2, einmal mit 2048 und einmal mit 8192, sonst gleich:
+
+| `vm.min_free_kbytes` | Last | Ergebnis |
+| --- | --- | --- |
+| 2048 | Ping-Flood über die 5-GHz-Mesh-Strecke (direkt per Link-Local, nicht über batman-adv) | sofort `rx ring became corrupted`, 5 GHz tot bis zum Neustart; **3-mal reproduziert** |
+| 8192 | dieselbe Last, 2,5 Minuten, ~1200 Pakete/s Empfang | fehlerfrei, 5 GHz stabil, obwohl MemAvailable dabei auf 1,3–2,4 MB sank |
+
+Beim ersten Mal trat der Fehler bei einer Lastprobe mit viel Dateizugriff
+auf. Die Speicheranzeige (MemAvailable 12 MB kurz vorher) hat davor nicht
+gewarnt; sie zählt den Datei-Cache mit, den atomare Anforderungen nicht
+nutzen können.
+
+**Betroffen** sind die 64-MB-Geräte mit ath10k: Archer C2 v3, C25 v1, C58 v1,
+C60 v1, D50 v1, TL-WR902AC v1, FRITZ!WLAN Repeater 1750E. Gemessen haben wir
+nur den C25 (QCA9887); die anderen nutzen denselben Treiberweg. Geräte mit
+128 MB sind nicht betroffen, weil die Einstellung dort nicht greift. Für ath9k
+und mt76 mit 2048 haben wir keine Messung, weder für den Nutzen noch für das
+Risiko.
+
+**Was wir tun:** Wir übernehmen aus dem Backport nur die kleineren
+Fragmentpuffer, `vm.min_free_kbytes` bleibt bei 8192. Zusätzlich erkennt ein
+Check im Paket
+[`neanderfunk-hotfix`](https://github.com/Neanderfunk/packages/tree/v2023.2.x/neanderfunk-hotfix)
+(`ath10k_rxhang`) die Meldung im Kernel-Log und startet das Gerät neu, falls
+der Zustand trotzdem auftritt.
+
+**Für andere Communities:** Wer eine Gluon-Version mit `a505f767` **und**
+`c6ac8914` baut und ath10k-Geräte mit 64 MB im Netz hat, sollte den Wert für
+diese Geräte zurücksetzen, zum Beispiel mit einer Datei, die nach der von
+Gluon gelesen wird (die Dateien in `/etc/sysctl.d/` werden alphabetisch
+angewendet, die letzte gewinnt):
+
+```
+# /etc/sysctl.d/36-min-free-ath10k.conf
+vm.min_free_kbytes=8192
+```
+
+Ohne `c6ac8914` wirkt `a505f767` nicht (falsche Dateiendung, Vergleich in
+falscher Einheit); Gluon v2025.1.3 enthält nur `a505f767`.
 
 ## squashfs mit 64 statt 256 KiB Blockgröße?
 
@@ -115,4 +186,7 @@ vorbereiteter Mechanismus für die Blockgröße je Gerät liegt in
 * Die ramips-Geräte (R6120, C50 v3, WR1000, C20i) stehen erst seit
   September 2026 auf der Liste. Felderfahrung mit den Entlastungen gibt es
   bisher vom WR1000, der erste R6120 folgt.
+* Ob ein Zwischenwert für `vm.min_free_kbytes` (etwa 4096) auf ath10k hält,
+  ist nicht gemessen. Ebenso offen: ob ath9k- und mt76-Geräte von 2048
+  profitieren oder darunter leiden.
 * Rückmeldungen und Messwerte sind willkommen, gern als Issue in diesem Repo.
