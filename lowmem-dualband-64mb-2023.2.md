@@ -143,10 +143,7 @@ Risiko.
 
 **Was wir tun:** Wir übernehmen aus dem Backport nur die kleineren
 Fragmentpuffer, `vm.min_free_kbytes` bleibt bei 8192. Zusätzlich erkennt ein
-Check im Paket
-[`neanderfunk-hotfix`](https://github.com/Neanderfunk/packages/tree/v2023.2.x/neanderfunk-hotfix)
-(`ath10k_rxhang`) die Meldung im Kernel-Log und startet das Gerät neu, falls
-der Zustand trotzdem auftritt.
+Check den Ausfall im Betrieb, siehe unten.
 
 **Für andere Communities:** Wer eine Gluon-Version mit `a505f767` **und**
 `c6ac8914` baut und ath10k-Geräte mit 64 MB im Netz hat, sollte den Wert für
@@ -161,6 +158,44 @@ vm.min_free_kbytes=8192
 
 Ohne `c6ac8914` wirkt `a505f767` nicht (falsche Dateiendung, Vergleich in
 falscher Einheit); Gluon v2025.1.3 enthält nur `a505f767`.
+
+### Erkennung im Betrieb: der Check `ath10k_rxhang`
+
+Wer den Wert trotzdem gesenkt hat oder auf einem Stand unterwegs ist, der ihn
+noch senkt, sollte den Ausfall wenigstens bemerken. Das Paket
+[`neanderfunk-hotfix`](https://github.com/Neanderfunk/packages/tree/v2023.2.x/neanderfunk-hotfix)
+bringt dafür den Check `ath10k_rxhang` mit, der alle sieben Minuten den
+Kernel-Ringpuffer ansieht und zwei Fehlerbilder kennt.
+
+**RX-Ring korrupt** – `ath10k_pci ...: rx ring became corrupted: -5`. Der
+Treiber füllt seine Empfangspuffer im Interrupt-Kontext mit `GFP_ATOMIC` nach;
+reicht die atomare Reserve unter Last nicht, wird der Ring unbrauchbar. Danach
+ist 5 GHz tot, und der Chip erholt sich nicht von selbst: Ein Neustart des
+WLAN genügt nicht, nur ein Reboot hilft. **Eine einzige Zeile löst aus**, denn
+der Ring repariert sich nicht.
+
+**Firmware-Neustartschleife** – `ath10k_pci ...: failed to send pdev bss chan
+info request, restarting hardware`, gefolgt von `already restarting`, im
+Abstand weniger Sekunden. Die Chip-Firmware stürzt ab, der Neustart durch den
+Treiber kommt nicht durch. Hier wird **gezählt**: Ein einzelnes
+`restarting hardware` kann ein Ausrutscher sein, nach dem der Treiber sich
+fängt. Erst ab drei Vorkommen im Ringpuffer gilt es als Schleife; der Wert ist
+über `hotfix.settings.ath10k_restart_min` einstellbar.
+
+Die Reboot-Meldung nennt das Fehlerbild (`rxring:` oder `fwloop:`), damit sich
+später auswerten lässt, welcher der beiden Fälle vorlag. Nach dem Reboot ist
+der Ringpuffer leer, es entsteht also keine Schleife, und eine Mindestlaufzeit
+verhindert, dass ein Gerät, das den Fehler gleich beim Start wirft, in einen
+Boot-Loop gerät. Auf Geräten ohne ath10k greift keines der beiden Muster.
+
+**Was der Check nicht kann.** In einem beobachteten Fall wurde der Knoten nach
+längerer Neustartschleife vollständig unerreichbar – serielle Konsole stumm,
+kein Netz. Der Hardware-Watchdog löste dabei nicht aus, weil procd weiterlief
+und ihn weiter fütterte; ein Kernel-Freeze war es also nicht. Der Cron-Dienst
+kam trotzdem nicht mehr zum Zug. In diesem Endzustand hilft keine Software
+mehr – der Check muss greifen, solange die Schleife noch läuft. Wer solche
+Geräte an entlegenen Stellen betreibt, sollte eine Möglichkeit zum
+Stromlosschalten einplanen.
 
 ## squashfs mit 64 statt 256 KiB Blockgröße?
 
