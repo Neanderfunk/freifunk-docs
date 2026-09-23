@@ -12,6 +12,7 @@ Communities und Knotenbetreibern helfen.
 | [lan-ports-trennen-2023.2.md](lan-ports-trennen-2023.2.md) | LAN-Ports unter Gluon 2023.2 einzeln als Mesh- oder Client-Port einrichten (Geräte mit DSA); Sonderfall: Uplink vom WAN auf den LAN-Port legen, z. B. beim Cudy TR3000 |
 | [rtl8221b-2g5-wan-2023.2.md](rtl8221b-2g5-wan-2023.2.md) | 2,5G-WAN mit Realtek RTL8221B auf MT7981 (Cudy TR3000, WR3000H, M3000): Symptome, Hintergrund, Belege sammeln, Abhilfe |
 | [lowmem-dualband-64mb-2023.2.md](lowmem-dualband-64mb-2023.2.md) | Dualband-Router mit 64 MB RAM (Archer C25, R6120, WR1000 u. a.): Fehlerbilder, Messen, Entlastungen, Update |
+| [mips-tlb-cold-start-5.15.md](mips-tlb-cold-start-5.15.md) | **Englisch.** MIPS-Router (ath79, lantiq, ramips) bleiben auf Kernel 5.15.190 bis 5.15.208 beim Kaltstart stehen, Warmstart geht: Erkennen, betroffene Geräte, Ursache, die Korrektur aus 5.15.209 und wie man selbst nachmisst |
 
 ## Was hier hineingehört
 
