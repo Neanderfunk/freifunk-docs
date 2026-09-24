@@ -1,20 +1,19 @@
 # UniFi-Accesspoints hinter Freifunk-Routern: auf die Karte bringen und richtig einstellen
 
 **Kurz:** Wer Ubiquiti-UniFi-Accesspoints hinter einem Freifunk-Router betreibt,
-kann sie auf der Freifunk-Karte sichtbar machen, an ihrem Standort und
-verbunden mit dem Freifunk-Router, über den sie ins Netz gehen. Dafür braucht
-es zwei Dinge im UniFi-Controller: eine Koordinate je Accesspoint und eine Site
-je Freifunk-Router. Dazu kommen ein paar Einstellungen, ohne die UniFi-Geräte
-hinter einem Freifunk-Router Ärger machen.
+kann sie auf der Freifunk-Karte an ihrem Standort sichtbar machen. Dafür
+braucht es im UniFi-Controller vor allem eines: eine Koordinate je
+Accesspoint. Dazu kommen ein paar Einstellungen, ohne die UniFi-Geräte hinter
+einem Freifunk-Router Ärger machen.
 
 **Gilt für** UniFi-Accesspoints mit UniFi-Network-Controller, die ihr Netz
 von einem Freifunk-Router bekommen. Die Karte zeigt sie nur, wenn Eure
 Freifunk-Community den Controller an ihre Karte anbindet; bei Freifunk im
-Neanderland bereiten wir das gerade vor. Die Einstellungen in Teil 3 lohnen sich aber
-auch ohne Karte. Stand 24.09.2026.
+Neanderland bereiten wir das gerade vor. Die Einstellungen in Teil 2 lohnen sich aber
+auch ohne Karte. Stand 25.09.2026.
 
-Entstanden ist die Anleitung für die Installation des LVR mit über 600
-Accesspoints, verteilt auf mehrere Freifunk-Router. Sie gilt aber genauso für
+Entstanden ist die Anleitung für die Installation des LVR mit mehreren
+hundert Accesspoints hinter rund hundert Freifunk-Routern. Sie gilt aber genauso für
 eine Handvoll Geräte in einem Vereinsheim.
 
 ---
@@ -23,14 +22,26 @@ eine Handvoll Geräte in einem Vereinsheim.
 
 UniFi-Accesspoints sind keine Freifunk-Knoten. Sie funken das offene
 Freifunk-WLAN, aber sie melden sich nicht selbst bei der Karte. Was die Karte
-über sie weiß, liest sie aus Eurem UniFi-Controller: welche Geräte es gibt,
-wo sie stehen und zu welchem Freifunk-Router sie gehören.
+über sie weiß, liest sie aus Eurem UniFi-Controller: welche Geräte es gibt
+und wo sie stehen.
 
 Das übernimmt ein Werkzeug von Freifunk München,
 [unifi_respondd](https://github.com/freifunkMUC/unifi_respondd). Es fragt
 den Controller regelmäßig ab und reicht die Accesspoints an die Karte weiter.
-Standort und Zuordnung stehen im Controller aber erst drin, wenn Ihr sie
-eintragt. Das ist einmalige Arbeit, danach pflegt sich die Karte von selbst.
+Den Standort kann niemand herleiten, der steht im Controller erst drin,
+wenn Ihr ihn eintragt. Das ist einmalige Arbeit, danach pflegt sich die Karte
+von selbst.
+
+**Hinter welchem Freifunk-Router** ein Accesspoint hängt, müsst Ihr dagegen
+nicht eintragen. Das wollen wir bei Freifunk im Neanderland künftig
+automatisch aus dem Freifunk-Netz ermitteln; das ist geplant, aber noch nicht
+gebaut. Ihr legt dafür also **keine** zusätzlichen Sites an und verschiebt
+keine Geräte.
+
+In seiner ursprünglichen Form kennt das Werkzeug allerdings je Site genau
+einen Freifunk-Router. Betreibt Eure Community es so und hängen Eure
+Accesspoints hinter mehreren Routern, sprecht mit ihr ab, wie sie die
+Zuordnung lösen will.
 
 **Eine Voraussetzung vorweg:** Das Werkzeug meldet nur Accesspoints, deren
 WLAN-Name zu einem Muster passt, das Eure Community einstellt. Üblich ist
@@ -85,69 +96,13 @@ Die Menüpunkte können je nach Version des Controllers leicht anders heißen.
 Accesspoints unter SNMP. Auf der Karte erscheint er, sobald Eure Community den
 Controller angebunden hat.
 
-## Teil 2: Eine Site je Freifunk-Router
+## Teil 2: Einstellungen im Controller
 
-Das Werkzeug, das die Accesspoints auf die Karte bringt, kennt je Site
-**genau einen** Freifunk-Router. Hängen Eure Accesspoints hinter mehreren Freifunk-Routern, zum
-Beispiel einer je Gebäude oder je Stockwerk, dann braucht jeder dieser Router
-seine eigene Site. Sonst hängen auf der Karte alle Accesspoints am falschen
-Router.
-
-Hängen alle Accesspoints hinter einem einzigen Freifunk-Router, könnt Ihr
-diesen Teil überspringen.
-
-### Sites anlegen
-
-- oben links auf den Namen der Site klicken, **Add New Site**
-- je Freifunk-Router eine Site, etwa so:
-
-| Site | hängt hinter |
-| --- | --- |
-| `ff-haus-a` | Freifunk-Router im Haus A |
-| `ff-haus-b` | Freifunk-Router im Haus B |
-| `ff-haus-c` | Freifunk-Router im Haus C |
-
-- Die Namen stimmt Ihr vorher mit Eurer Freifunk-Community ab. Maßgeblich ist
-  der Name der Site **so, wie er im Controller angezeigt wird**. Er wird
-  genau so in die Konfiguration übernommen; ein Tippfehler heißt, dass die
-  Site nicht gefunden wird.
-- Die Namen später nicht mehr ändern.
-
-### Zuerst die neue Site einrichten, dann umziehen
-
-Die WLAN- und Netzwerkeinstellungen wandern beim Umzug **nicht** mit. Richtet
-deshalb jede neue Site zuerst nach Teil 3 ein. Ein Accesspoint, der in eine
-leere Site umzieht, funkt danach nichts.
-
-### Accesspoints verschieben
-
-- **Devices** öffnen, in der bisherigen Site
-- Geräte auswählen, Mehrfachauswahl geht
-- **Manage Device**, dann **Move to Site**, Ziel-Site wählen
-- bestätigen
-
-Dabei gut zu wissen:
-
-- Der Accesspoint wird neu eingebunden. Er ist **ein bis zwei Minuten
-  offline**, das WLAN fällt in dieser Zeit aus.
-- Deshalb **Gruppe für Gruppe** vorgehen, nicht alle auf einmal.
-
-**Prüfen:** In der Ziel-Site muss der Accesspoint den Status **Connected**
-erreichen. Bleibt er bei **Adopting** oder **Pending** hängen, hilft meist,
-ihn kurz vom Strom zu nehmen.
-
-**Zurück:** Genauso, nur mit der alten Site als Ziel. Die Koordinaten aus
-Teil 1 bleiben beim Umzug in beide Richtungen erhalten.
-
-## Teil 3: Einstellungen je Site
-
-Bevor Accesspoints in eine neue Site umziehen, und am besten auch in einer
-bestehenden Site hinter einem Freifunk-Router.
+Für die Site, in der Eure Accesspoints hinter einem Freifunk-Router stehen.
 
 ### WLAN
 
-- **Settings, WiFi:** das Freifunk-WLAN anlegen, bei einer neuen Site genau
-  wie in der bisherigen
+- **Settings, WiFi:** das Freifunk-WLAN
 - die **SSID muss genau stimmen**, auch in Groß- und Kleinschreibung
 - Sicherheit **Open**, ohne Passwort
 - **Guest Policies und Captive Portal: aus.** Freifunk braucht keine
@@ -171,16 +126,13 @@ bestehenden Site hinter einem Freifunk-Router.
 
 ### Allgemein
 
-- **Settings, System, Country und Timezone** richtig setzen, bei einer neuen
-  Site wie in der bisherigen
+- **Settings, System, Country und Timezone** richtig setzen
 
 ## Die Reihenfolge
 
-1. Koordinaten in der bestehenden Site eintragen. Das geht sofort und bleibt
-   beim späteren Umzug erhalten.
-2. Falls nötig, neue Sites anlegen und jede nach Teil 3 einrichten.
-3. Accesspoints Gruppe für Gruppe verschieben, nach jeder Gruppe kurz prüfen.
-4. Bei Eurer Freifunk-Community melden, mit den Namen der Sites.
+1. Koordinaten je Accesspoint eintragen. Das geht sofort.
+2. Die Einstellungen aus Teil 2 prüfen.
+3. Bei Eurer Freifunk-Community melden.
 
 Läuft der Controller bei Euch selbst, braucht die Community für die Anbindung
 zweierlei: ein **Konto mit reinen Leserechten**, mehr ist nicht nötig, denn das
