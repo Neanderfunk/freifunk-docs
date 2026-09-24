@@ -103,7 +103,7 @@ Für die Site, in der Eure Accesspoints hinter einem Freifunk-Router stehen.
 ### WLAN
 
 - **Settings, WiFi:** das Freifunk-WLAN
-- die **SSID muss genau stimmen**, auch in Groß- und Kleinschreibung
+- der **Name des WLANs** muss zu dem Muster passen, das Eure Community eingestellt hat (siehe oben), sonst erscheint der Accesspoint nicht auf der Karte
 - Sicherheit **Open**, ohne Passwort
 - **Guest Policies und Captive Portal: aus.** Freifunk braucht keine
   Anmeldeseite.
