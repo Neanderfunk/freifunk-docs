@@ -40,11 +40,10 @@ einen Freifunk-Router. Betreibt Eure Community es so und hängen Eure
 Accesspoints hinter mehreren Routern, sprecht mit ihr ab, wie sie die
 Zuordnung lösen will.
 
-**Eine Voraussetzung vorweg:** Das Werkzeug meldet nur Accesspoints, deren
-WLAN-Name zu einem Muster passt, das Eure Community einstellt. Üblich ist
-"enthält freifunk", egal ob groß oder klein geschrieben. Heißt Euer
-Freifunk-WLAN anders, sagt es Eurer Community, sonst tauchen die Geräte nicht
-auf.
+**Eine Voraussetzung vorweg:** Auf der Karte erscheinen nur Accesspoints, die
+ein WLAN mit "Freifunk" im Namen aussenden. Ein Accesspoint ohne ein solches
+WLAN ist kein Freifunk-Accesspoint, und auf einer Freifunk-Karte hätte er
+nichts verloren.
 
 ## Koordinaten je Accesspoint
 
