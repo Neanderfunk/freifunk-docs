@@ -7,10 +7,15 @@ it only shows up when part of your fleet fails to come back after a power cut.
 
 **Cause:** a kernel commit that has been uniquifying TLB entries at boot since
 5.15.190 and kills some boards while doing so. It is properly fixed only in
-**5.15.209**. OpenWrt 23.05 sits on 5.15.198 and is therefore affected.
+**5.15.209**. The openwrt-23.05 branch has carried the fix since 2026-07-11
+(kernel 5.15.211), but firmware pinned to an older 23.05 state is still
+affected, and that includes **Gluon v2023.2.6, which ships 5.15.198**. Gluon
+picked up the newer base on its v2023.2.x branch on 2026-09-22; no tagged
+release contains it yet.
 
-**Applies to** OpenWrt 23.05 and firmware built on it, such as Gluon 2023.2, on
-r4k-class MIPS devices: ath79, lantiq, ramips. Last updated 2026-09-23.
+**Applies to** firmware built on an openwrt-23.05 state from before
+2026-07-11, such as Gluon v2023.2.6, on r4k-class MIPS devices: ath79, lantiq,
+ramips. Last updated 2026-09-24.
 
 ---
 
@@ -80,7 +85,15 @@ version number suggests the matter is settled. Nothing further landed up to
 
 ## What to do
 
-### The good way: take the fix from 5.15.209
+### The easy way: move to a current base
+
+If you build Gluon yourself, rebase onto the **v2023.2.x branch from
+2026-09-22 onwards** ([freifunk-gluon/gluon#3841](https://github.com/freifunk-gluon/gluon/pull/3841)),
+which brings 5.15.211. If you build OpenWrt 23.05 directly, any branch state
+from 2026-07-11 onwards has it. Drop any local workaround for this bug when
+you do, the kernel code it touches has changed.
+
+### If you have to stay on 5.15.198: backport the fix
 
 Upstream fixed this properly in **5.15.209**, released 2026-06-01, with five
 commits:
@@ -140,7 +153,6 @@ every kernel bump. Given the choice, take the 5.15.209 fix.
 ### What does not help
 
 * **Rebooting.** Every power-cycle attempt is another cold start.
-* **A newer OpenWrt 23.05.** It stays on 5.15.198.
 * **Swapping the device.** The identical replacement has the same bootloader.
 
 ### Fixed from OpenWrt 24.10 onwards
