@@ -13,7 +13,7 @@ Communities und Knotenbetreibern helfen.
 | [rtl8221b-2g5-wan-2023.2.md](rtl8221b-2g5-wan-2023.2.md) | 2,5G-WAN mit Realtek RTL8221B auf MT7981 (Cudy TR3000, WR3000H, M3000): Symptome, Hintergrund, Belege sammeln, Abhilfe |
 | [lowmem-dualband-64mb-2023.2.md](lowmem-dualband-64mb-2023.2.md) | Dualband-Router mit 64 MB RAM (Archer C25, R6120, WR1000 u. a.): Fehlerbilder, Messen, Entlastungen, Update |
 | [mips-tlb-cold-start-5.15.md](mips-tlb-cold-start-5.15.md) | **Englisch.** MIPS-Router (ath79, lantiq, ramips) bleiben auf Kernel 5.15.190 bis 5.15.208 beim Kaltstart stehen, Warmstart geht: Erkennen, betroffene Geräte, Ursache, die Korrektur aus 5.15.209 und wie man selbst nachmisst |
-| [unifi-accesspoints-freifunk-karte.md](unifi-accesspoints-freifunk-karte.md) | UniFi-Accesspoints hinter Freifunk-Routern: Koordinaten je Gerät, eine Site je Freifunk-Router, sinnvolle Controller-Einstellungen, damit die Geräte auf der Karte erscheinen und hinter dem Freifunk-Router stabil laufen |
+| [unifi-accesspoints-freifunk-karte.md](unifi-accesspoints-freifunk-karte.md) | UniFi-Accesspoints auf die Freifunk-Karte bringen: Koordinaten je Gerät im Controller eintragen, Voraussetzungen und was die Community für die Anbindung braucht |
 
 ## Was hier hineingehört
 

@@ -1,16 +1,13 @@
-# UniFi-Accesspoints hinter Freifunk-Routern: auf die Karte bringen und richtig einstellen
+# UniFi-Accesspoints auf die Freifunk-Karte bringen
 
 **Kurz:** Wer Ubiquiti-UniFi-Accesspoints hinter einem Freifunk-Router betreibt,
 kann sie auf der Freifunk-Karte an ihrem Standort sichtbar machen. Dafür
-braucht es im UniFi-Controller vor allem eines: eine Koordinate je
-Accesspoint. Dazu kommen ein paar Einstellungen, ohne die UniFi-Geräte hinter
-einem Freifunk-Router Ärger machen.
+braucht es im UniFi-Controller eine Koordinate je Accesspoint.
 
 **Gilt für** UniFi-Accesspoints mit UniFi-Network-Controller, die ihr Netz
 von einem Freifunk-Router bekommen. Die Karte zeigt sie nur, wenn Eure
 Freifunk-Community den Controller an ihre Karte anbindet; bei Freifunk im
-Neanderland bereiten wir das gerade vor. Die Einstellungen in Teil 2 lohnen sich aber
-auch ohne Karte. Stand 25.09.2026.
+Neanderland bereiten wir das gerade vor. Stand 25.09.2026.
 
 Entstanden ist die Anleitung für die Installation des LVR mit mehreren
 hundert Accesspoints hinter rund hundert Freifunk-Routern. Sie gilt aber genauso für
@@ -49,7 +46,7 @@ WLAN-Name zu einem Muster passt, das Eure Community einstellt. Üblich ist
 Freifunk-WLAN anders, sagt es Eurer Community, sonst tauchen die Geräte nicht
 auf.
 
-## Teil 1: Koordinaten je Accesspoint
+## Koordinaten je Accesspoint
 
 Muss für jeden Accesspoint einzeln gemacht werden.
 
@@ -96,43 +93,10 @@ Die Menüpunkte können je nach Version des Controllers leicht anders heißen.
 Accesspoints unter SNMP. Auf der Karte erscheint er, sobald Eure Community den
 Controller angebunden hat.
 
-## Teil 2: Einstellungen im Controller
-
-Für die Site, in der Eure Accesspoints hinter einem Freifunk-Router stehen.
-
-### WLAN
-
-- **Settings, WiFi:** das Freifunk-WLAN
-- der **Name des WLANs** muss zu dem Muster passen, das Eure Community eingestellt hat (siehe oben), sonst erscheint der Accesspoint nicht auf der Karte
-- Sicherheit **Open**, ohne Passwort
-- **Guest Policies und Captive Portal: aus.** Freifunk braucht keine
-  Anmeldeseite.
-
-### Netzwerk
-
-- **Settings, Networks:** ein einziges Netz vom Typ **Corporate**, DHCP
-  **None** beziehungsweise "Use existing DHCP". Die Adressen vergibt das
-  Freifunk-Netz, nicht der Controller.
-- kein VLAN, außer Ihr habt bisher schon eines verwendet
-
-### Geräteverhalten
-
-- **Settings, System, Uplink Connectivity Monitor: aus.** Sonst startet sich
-  ein Accesspoint selbst neu, wenn er ein bestimmtes Ziel nicht anpingen kann,
-  und hinter einem Freifunk-Router passiert genau das regelmäßig.
-- **Auto-Optimize Network: aus**
-- **Wireless Meshing: aus**, sofern alle Accesspoints per Kabel angebunden sind
-- **Auto-Upgrade** nach eigenem Ermessen, für Freifunk spielt es keine Rolle
-
-### Allgemein
-
-- **Settings, System, Country und Timezone** richtig setzen
-
 ## Die Reihenfolge
 
 1. Koordinaten je Accesspoint eintragen. Das geht sofort.
-2. Die Einstellungen aus Teil 2 prüfen.
-3. Bei Eurer Freifunk-Community melden.
+2. Bei Eurer Freifunk-Community melden.
 
 Läuft der Controller bei Euch selbst, braucht die Community für die Anbindung
 zweierlei: ein **Konto mit reinen Leserechten**, mehr ist nicht nötig, denn das
