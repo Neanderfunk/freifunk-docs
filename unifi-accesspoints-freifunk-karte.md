@@ -70,15 +70,19 @@ Vier Nachkommastellen genügen, das sind etwa zehn Meter. Genauigkeit auf
 Gebäudeebene reicht, und stehen mehrere Accesspoints im selben Gebäude, darf
 dieselbe Koordinate mehrfach vorkommen.
 
-**Die Reihenfolge ist das Einzige, worauf Ihr wirklich achten müsst:** erst
-die Breite, dann die Länge. In Deutschland ist die Breite dabei immer die
-größere Zahl, sie liegt zwischen 47 und 55, die Länge zwischen 6 und 15.
-Vertauscht landet der Accesspoint in Ostafrika, und das kann niemand erraten.
+**Schreibt Ihr reine Zahlen, kommt es auf die Reihenfolge an:** erst die
+Breite, dann die Länge. In Deutschland ist die Breite dabei immer die größere
+Zahl, sie liegt zwischen 47 und 55, die Länge zwischen 6 und 15. Vertauscht
+landet der Accesspoint in Ostafrika, und das kann niemand erraten.
 
-Ansonsten wird das Feld nachsichtig gelesen. Punkt oder Komma als
-Dezimaltrennzeichen, Komma, Semikolon oder Leerzeichen als Trenner, ein paar
-Klammern oder Anführungszeichen drumherum stören nicht. Auch ein aus der
-Adresszeile kopierter Google-Maps-Link funktioniert.
+Mit Himmelsrichtung ist sogar das egal, `6.3538 E, 51.2874 N` wird richtig
+verstanden.
+
+Ansonsten wird das Feld nachsichtig gelesen: Punkt oder Komma als
+Dezimaltrennzeichen, Komma, Semikolon oder Leerzeichen als Trenner, Klammern
+oder Anführungszeichen drumherum, Grad, Minuten und Sekunden in der
+Schreibweise von Google Maps (`51°17'14.8"N 6°21'13.7"E`), und auch ein aus
+der Adresszeile kopierter Google-Maps-Link.
 
 ### Woher die Koordinaten kommen
 
@@ -93,8 +97,8 @@ Adresszeile kopierter Google-Maps-Link funktioniert.
   ginge Eure Adresse dafür an einen fremden Dienst.
 - **Kurzlinks aus der Teilen-Funktion** (`maps.app.goo.gl/...`). Darin stehen
   keine Koordinaten. Nehmt den Link aus der Adresszeile oder gleich die Zahlen.
-- Angaben mit Himmelsrichtung (N, E, S, W) und ganze Zahlen ohne
-  Nachkommastellen.
+- Widersprüchliches, etwa ein Minuszeichen zusammen mit einer
+  Himmelsrichtung oder zweimal dieselbe Richtung.
 
 Das Feld **Contact** darf leer bleiben. Die Karte liest das Standortfeld über
 den Controller, nicht per SNMP; SNMP selbst muss dafür **nicht** eingeschaltet
