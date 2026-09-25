@@ -82,6 +82,16 @@ mit Grad und Minuten oder einen Link aus der Adresszeile des Browsers.
 
 ### Woher die Koordinaten kommen
 
+**Am bequemsten über die Karte selbst.** Auf
+[neander.map.freifunk.space](https://neander.map.freifunk.space/) gibt es oben
+rechts ein Stecknadel-Symbol, **Koordinaten wählen**. Danach klickt Ihr den
+Punkt in der Karte an, und links erscheinen Breite und Länge, dazu ein Feld
+**Breite, Länge** mit einer Schaltfläche zum Kopieren daneben. Dieses Feld
+könnt Ihr unverändert in **Location** einsetzen. Die Luftbildansicht hilft
+dabei, das richtige Gebäude zu treffen.
+
+Sonst gehen auch:
+
 - **Google Maps:** Rechtsklick auf den Punkt, die erste Zeile im Menü ist das
   Koordinatenpaar, ein Klick darauf kopiert es.
 - **OpenStreetMap:** Rechtsklick auf den Punkt, "Adresse anzeigen", die
