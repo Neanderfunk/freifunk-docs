@@ -58,35 +58,47 @@ Muss für jeden Accesspoint einzeln gemacht werden.
 
 Die Menüpunkte können je nach Version des Controllers leicht anders heißen.
 
-### Format
+### Was ins Feld kommt
+
+Am besten das Koordinatenpaar, Breite zuerst:
 
 ```
-51.2506, 6.9746
+51.2874, 6.3538
 ```
 
-- Dezimalgrad, **Punkt** als Dezimaltrennzeichen
-- Breite zuerst, dann Länge, getrennt durch **Komma**
-- vier Nachkommastellen genügen, das sind etwa zehn Meter
-- keine Anführungszeichen, keine Himmelsrichtungen, kein Grad-Zeichen
+Vier Nachkommastellen genügen, das sind etwa zehn Meter. Genauigkeit auf
+Gebäudeebene reicht, und stehen mehrere Accesspoints im selben Gebäude, darf
+dieselbe Koordinate mehrfach vorkommen.
+
+**Die Reihenfolge ist das Einzige, worauf Ihr wirklich achten müsst:** erst
+die Breite, dann die Länge. In Deutschland ist die Breite dabei immer die
+größere Zahl, sie liegt zwischen 47 und 55, die Länge zwischen 6 und 15.
+Vertauscht landet der Accesspoint in Ostafrika, und das kann niemand erraten.
+
+Ansonsten wird das Feld nachsichtig gelesen. Punkt oder Komma als
+Dezimaltrennzeichen, Komma, Semikolon oder Leerzeichen als Trenner, ein paar
+Klammern oder Anführungszeichen drumherum stören nicht. Auch ein aus der
+Adresszeile kopierter Google-Maps-Link funktioniert.
 
 ### Woher die Koordinaten kommen
 
+- **Google Maps:** Rechtsklick auf den Punkt, die erste Zeile im Menü ist das
+  Koordinatenpaar, ein Klick darauf kopiert es.
 - **OpenStreetMap:** Rechtsklick auf den Punkt, "Adresse anzeigen", die
   Koordinaten stehen dann in der Adresszeile des Browsers.
-- **Google Maps:** Rechtsklick auf den Punkt, die erste Zeile im Menü ist das
-  Koordinatenpaar, ein Klick darauf kopiert es in der richtigen Form.
-- Genauigkeit auf Gebäudeebene reicht. Stehen mehrere Accesspoints im selben
-  Gebäude, darf dieselbe Koordinate mehrfach vorkommen.
 
-### Was nicht hineingehört
+### Was nicht funktioniert
 
-- **Koordinaten, keine Adresse.** Eine Adresse übersetzt das Werkzeug über
-  den OpenStreetMap-Dienst Nominatim. Das ist ungenauer, und die Adresse geht
-  dafür an einen fremden Dienst. Findet der Dienst nichts, steht der
-  Accesspoint auf der Karte bei 0/0, im Golf von Guinea.
-- Das Feld **Contact** darf leer bleiben.
-- Die Karte liest das Feld über den Controller, nicht per SNMP. SNMP selbst
-  muss dafür **nicht** eingeschaltet sein.
+- **Eine Straßenadresse als Text.** Es gibt bewusst keine Adresssuche, sonst
+  ginge Eure Adresse dafür an einen fremden Dienst.
+- **Kurzlinks aus der Teilen-Funktion** (`maps.app.goo.gl/...`). Darin stehen
+  keine Koordinaten. Nehmt den Link aus der Adresszeile oder gleich die Zahlen.
+- Angaben mit Himmelsrichtung (N, E, S, W) und ganze Zahlen ohne
+  Nachkommastellen.
+
+Das Feld **Contact** darf leer bleiben. Die Karte liest das Standortfeld über
+den Controller, nicht per SNMP; SNMP selbst muss dafür **nicht** eingeschaltet
+sein.
 
 **Prüfen:** Nach dem Speichern steht die Koordinate in der Geräteübersicht des
 Accesspoints unter SNMP. Auf der Karte erscheint er, sobald Eure Community den
