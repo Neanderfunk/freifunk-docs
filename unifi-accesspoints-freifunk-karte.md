@@ -84,8 +84,9 @@ mit Grad und Minuten oder einen Link aus der Adresszeile des Browsers.
 
 **Am bequemsten über die Karte selbst.** Auf
 [neander.map.freifunk.space](https://neander.map.freifunk.space/) gibt es oben
-rechts ein Stecknadel-Symbol, **Koordinaten wählen**. Danach klickt Ihr den
-Punkt in der Karte an, und links erscheinen Breite und Länge, dazu ein Feld
+rechts ein Stecknadel-Symbol, **Koordinaten wählen**; dasselbe erreicht Ihr
+mit einem Rechtsklick oder langem Tippen auf die Karte. Klickt dann den Punkt
+an, und links erscheinen Breite und Länge, dazu ein Feld
 **Breite, Länge** mit einer Schaltfläche zum Kopieren daneben. Dieses Feld
 könnt Ihr unverändert in **Location** einsetzen. Die Luftbildansicht hilft
 dabei, das richtige Gebäude zu treffen.
@@ -116,6 +117,22 @@ an seinem Standort.
 
 Ohne Koordinate geht übrigens nichts verloren: Der Accesspoint ist trotzdem
 da, mit seinem Router und seinen Clients, nur eben nicht auf der Landkarte.
+
+## Was danach auf der Karte zu sehen ist
+
+Jeder Accesspoint steht als eigener Punkt auf der Karte, verbunden mit dem
+Freifunk-Router, hinter dem er hängt. Angezeigt werden sein Standort, die Zahl
+der verbundenen Geräte, die Kanalauslastung je Band, ein paar Minuten
+verzögert, sowie Systemlast und Speicher des Accesspoints. Die verbundenen
+Geräte zählen dabei beim Accesspoint und nicht noch einmal beim Router.
+
+Fällt ein Accesspoint aus, erscheint er nach etwa zwanzig Minuten als offline,
+mit dem Zeitpunkt, an dem er zuletzt gesehen wurde. Meldet er sich neunzig
+Tage lang nicht, verschwindet er von der Karte.
+
+Die Angabe **zuerst gesehen** meint den Tag, an dem das Gerät in den
+Controller aufgenommen wurde, nicht den Tag, an dem die Karte es zum ersten
+Mal gezeigt hat.
 
 ## Die Reihenfolge
 
