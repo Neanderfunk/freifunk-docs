@@ -66,7 +66,8 @@ Am besten das Koordinatenpaar, Breite zuerst:
 51.2874, 6.3538
 ```
 
-Vier Nachkommastellen genügen, das sind etwa zehn Meter. Genauigkeit auf
+Ein Leerzeichen zwischen den beiden Werten reicht auch, das Komma ist nicht
+nötig. Vier Nachkommastellen genügen, das sind etwa zehn Meter. Genauigkeit auf
 Gebäudeebene reicht, und stehen mehrere Accesspoints im selben Gebäude, darf
 dieselbe Koordinate mehrfach vorkommen.
 
