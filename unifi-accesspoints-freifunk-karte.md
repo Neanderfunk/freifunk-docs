@@ -84,12 +84,11 @@ mit Grad und Minuten oder einen Link aus der Adresszeile des Browsers.
 
 **Am bequemsten über die Karte selbst.** Auf
 [neander.map.freifunk.space](https://neander.map.freifunk.space/) gibt es oben
-rechts ein Stecknadel-Symbol, **Koordinaten wählen**; dasselbe erreicht Ihr
-mit einem Rechtsklick oder langem Tippen auf die Karte. Klickt dann den Punkt
-an, und links erscheinen Breite und Länge, dazu ein Feld
-**Breite, Länge** mit einer Schaltfläche zum Kopieren daneben. Dieses Feld
-könnt Ihr unverändert in **Location** einsetzen. Die Luftbildansicht hilft
-dabei, das richtige Gebäude zu treffen.
+rechts ein Stecknadel-Symbol, **Koordinaten wählen**. Schaltet es ein und
+klickt dann die Stelle in der Karte an. Im Seitenfenster erscheinen
+Breitengrad und Längengrad, dazu ein Feld **Breite, Länge**, jeweils mit einer
+Schaltfläche zum Kopieren. Dieses Feld könnt Ihr unverändert in **Location**
+einsetzen. Die Luftbildansicht hilft dabei, das richtige Gebäude zu treffen.
 
 Sonst gehen auch:
 
