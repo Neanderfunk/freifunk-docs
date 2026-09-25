@@ -7,7 +7,7 @@ braucht es im UniFi-Controller eine Koordinate je Accesspoint.
 **Gilt für** UniFi-Accesspoints mit UniFi-Network-Controller, die ihr Netz
 von einem Freifunk-Router bekommen. Die Karte zeigt sie nur, wenn Eure
 Freifunk-Community den Controller an ihre Karte anbindet; bei Freifunk im
-Neanderland bereiten wir das gerade vor. Stand 25.09.2026.
+Neanderland läuft das seit dem 25.09.2026. Stand 25.09.2026.
 
 Entstanden ist die Anleitung für die Installation des LVR mit mehreren
 hundert Accesspoints hinter rund hundert Freifunk-Routern. Sie gilt aber genauso für
@@ -30,10 +30,9 @@ wenn Ihr ihn eintragt. Das ist einmalige Arbeit, danach pflegt sich die Karte
 von selbst.
 
 **Hinter welchem Freifunk-Router** ein Accesspoint hängt, müsst Ihr dagegen
-nicht eintragen. Das wollen wir bei Freifunk im Neanderland künftig
-automatisch aus dem Freifunk-Netz ermitteln; das ist geplant, aber noch nicht
-gebaut. Ihr legt dafür also **keine** zusätzlichen Sites an und verschiebt
-keine Geräte.
+nicht eintragen. Das ermittelt die Karte bei Freifunk im Neanderland selbst
+aus dem Netz. Ihr legt dafür also **keine** zusätzlichen Sites an und
+verschiebt keine Geräte.
 
 In seiner ursprünglichen Form kennt das Werkzeug allerdings je Site genau
 einen Freifunk-Router. Betreibt Eure Community es so und hängen Eure
@@ -102,8 +101,11 @@ den Controller, nicht per SNMP; SNMP selbst muss dafür **nicht** eingeschaltet
 sein.
 
 **Prüfen:** Nach dem Speichern steht die Koordinate in der Geräteübersicht des
-Accesspoints unter SNMP. Auf der Karte erscheint er, sobald Eure Community den
-Controller angebunden hat.
+Accesspoints unter SNMP, und auf der Karte erscheint er wenige Minuten später
+an seinem Standort.
+
+Ohne Koordinate geht übrigens nichts verloren: Der Accesspoint ist trotzdem
+da, mit seinem Router und seinen Clients, nur eben nicht auf der Landkarte.
 
 ## Die Reihenfolge
 
