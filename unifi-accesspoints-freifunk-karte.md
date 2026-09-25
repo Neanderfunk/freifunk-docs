@@ -7,7 +7,7 @@ braucht es im UniFi-Controller eine Koordinate je Accesspoint.
 **Gilt für** UniFi-Accesspoints mit UniFi-Network-Controller, die ihr Netz
 von einem Freifunk-Router bekommen. Die Karte zeigt sie nur, wenn Eure
 Freifunk-Community den Controller an ihre Karte anbindet; bei Freifunk im
-Neanderland läuft das seit dem 25.09.2026. Stand 25.09.2026.
+Neanderland läuft das. Stand 25.09.2026.
 
 Entstanden ist die Anleitung für die Installation des LVR mit mehreren
 hundert Accesspoints hinter rund hundert Freifunk-Routern. Sie gilt aber genauso für
