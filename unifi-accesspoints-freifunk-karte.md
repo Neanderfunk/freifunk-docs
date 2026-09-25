@@ -66,8 +66,7 @@ Am besten das Koordinatenpaar, Breite zuerst:
 51.2874, 6.3538
 ```
 
-Ein Leerzeichen zwischen den beiden Werten reicht auch, das Komma ist nicht
-nötig. Vier Nachkommastellen genügen, das sind etwa zehn Meter. Genauigkeit auf
+Vier Nachkommastellen genügen, das sind etwa zehn Meter. Genauigkeit auf
 Gebäudeebene reicht, und stehen mehrere Accesspoints im selben Gebäude, darf
 dieselbe Koordinate mehrfach vorkommen.
 
@@ -76,14 +75,11 @@ Breite, dann die Länge. In Deutschland ist die Breite dabei immer die größere
 Zahl, sie liegt zwischen 47 und 55, die Länge zwischen 6 und 15. Vertauscht
 landet der Accesspoint in Ostafrika, und das kann niemand erraten.
 
-Mit Himmelsrichtung ist sogar das egal, `6.3538 E, 51.2874 N` wird richtig
-verstanden.
+Steht eine Himmelsrichtung dabei, ist auch das egal.
 
-Ansonsten wird das Feld nachsichtig gelesen: Punkt oder Komma als
-Dezimaltrennzeichen, Komma, Semikolon oder Leerzeichen als Trenner, Klammern
-oder Anführungszeichen drumherum, Grad, Minuten und Sekunden in der
-Schreibweise von Google Maps (`51°17'14.8"N 6°21'13.7"E`), und auch ein aus
-der Adresszeile kopierter Google-Maps-Link.
+Ansonsten müsst Ihr auf die Schreibweise nicht achten. Was Ihr aus Google Maps
+oder OpenStreetMap kopiert habt, könnt Ihr so einsetzen, auch die Schreibweise
+mit Grad und Minuten oder einen Link aus der Adresszeile des Browsers.
 
 ### Woher die Koordinaten kommen
 
