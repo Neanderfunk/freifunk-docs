@@ -76,7 +76,7 @@ dieselbe Koordinate mehrfach vorkommen.
 **Schreibt Ihr reine Zahlen, kommt es auf die Reihenfolge an:** erst die
 Breite, dann die Länge. In Deutschland ist die Breite dabei immer die größere
 Zahl, sie liegt zwischen 47 und 55, die Länge zwischen 6 und 15. Vertauscht
-landet der Accesspoint im Wasser vor Somalia, und das kann niemand erraten.
+landet der Accesspoint im Wasser vor Somalia.
 
 Steht eine Himmelsrichtung dabei, ist auch das egal.
 
