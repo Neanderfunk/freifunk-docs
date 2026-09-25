@@ -4,10 +4,15 @@
 kann sie auf der Freifunk-Karte an ihrem Standort sichtbar machen. Dafür
 braucht es im UniFi-Controller eine Koordinate je Accesspoint.
 
+**Vorausgesetzt ist ein Controller, an den Eure Freifunk-Community
+herankommt.** Dafür gibt es zwei Wege: Entweder Ihr bekommt ein Konto auf
+ihrem Controller und verwaltet Eure Accesspoints dort, oder Ihr gebt ihr
+lesenden Zugriff auf Euren eigenen. Bei Freifunk im Neanderland schreibt Ihr
+dafür an [projekt@neanderfunk.de](mailto:projekt@neanderfunk.de). Ohne einen
+dieser beiden Wege erscheinen die Geräte nicht auf der Karte.
+
 **Gilt für** UniFi-Accesspoints mit UniFi-Network-Controller, die ihr Netz
-von einem Freifunk-Router bekommen. Die Karte zeigt sie nur, wenn Eure
-Freifunk-Community den Controller an ihre Karte anbindet; bei Freifunk im
-Neanderland läuft das. Stand 25.09.2026.
+von einem Freifunk-Router bekommen. Stand 25.09.2026.
 
 Entstanden ist die Anleitung für die Installation des LVR mit mehreren
 hundert Accesspoints hinter rund hundert Freifunk-Routern. Sie gilt aber genauso für
@@ -17,10 +22,9 @@ eine Handvoll Geräte in einem Vereinsheim.
 
 ## Worum es geht
 
-UniFi-Accesspoints sind keine Freifunk-Knoten. Sie funken das offene
-Freifunk-WLAN, aber sie melden sich nicht selbst bei der Karte. Was die Karte
-über sie weiß, liest sie aus Eurem UniFi-Controller: welche Geräte es gibt
-und wo sie stehen.
+UniFi-Accesspoints sind keine Gluon-Knoten, sie melden sich daher nicht mit
+dem Respondd-Protokoll bei der Karte. Was die Karte über sie weiß, liest sie
+aus dem UniFi-Controller: welche Geräte es gibt und wo sie stehen.
 
 Das übernimmt ein Werkzeug von Freifunk München,
 [unifi_respondd](https://github.com/freifunkMUC/unifi_respondd). Es fragt
@@ -138,14 +142,11 @@ Mal gezeigt hat.
 1. Koordinaten je Accesspoint eintragen. Das geht sofort.
 2. Bei Eurer Freifunk-Community melden.
 
-Läuft der Controller bei Euch selbst, braucht die Community für die Anbindung
-zweierlei: ein **Konto mit reinen Leserechten**, mehr ist nicht nötig, denn das
-Werkzeug liest nur und schreibt nichts, und eine **Netzverbindung** zur
-Oberfläche Eures Controllers, auf dem Port, unter dem Ihr sie erreicht, meist
-8443 oder 443. Von wo sie zugreift, sagt sie Euch.
-
-Liegt Eure Site auf einem Controller, den die Community selbst betreibt,
-entfällt das.
+Läuft der Controller bei Euch selbst, braucht die Community dafür ein **Konto
+mit reinen Leserechten**, mehr ist nicht nötig, denn das Werkzeug liest nur und
+schreibt nichts, und eine **Netzverbindung** zur Oberfläche Eures Controllers,
+auf dem Port, unter dem Ihr sie erreicht, meist 8443 oder 443. Von wo sie
+zugreift, sagt sie Euch.
 
 ## Kontakt
 
