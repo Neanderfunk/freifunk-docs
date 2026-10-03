@@ -14,6 +14,7 @@ Communities und Knotenbetreibern helfen.
 | [lowmem-dualband-64mb-2023.2.md](lowmem-dualband-64mb-2023.2.md) | Dualband-Router mit 64 MB RAM (Archer C25, R6120, WR1000 u. a.): Fehlerbilder, Messen, Entlastungen, Update |
 | [mips-tlb-cold-start-5.15.md](mips-tlb-cold-start-5.15.md) | **Englisch.** MIPS-Router (ath79, lantiq, ramips) bleiben auf Kernel 5.15.190 bis 5.15.208 beim Kaltstart stehen, Warmstart geht: Erkennen, betroffene Geräte, Ursache, die Korrektur aus 5.15.209 und wie man selbst nachmisst |
 | [unifi-accesspoints-freifunk-karte.md](unifi-accesspoints-freifunk-karte.md) | UniFi-Accesspoints auf die Freifunk-Karte bringen: Koordinaten je Gerät im Controller eintragen, Voraussetzungen und was die Community für die Anbindung braucht |
+| [xiaomi-ax6s-umstieg-2025.1.md](xiaomi-ax6s-umstieg-2025.1.md) | Xiaomi Redmi AX6S / AX3200: Umstieg von Gluon 2023.2 auf 2025.1 von Hand per SSH, weil sich das Flash-Layout ändert; Einstellungen gehen verloren, danach `compat_version` setzen |
 
 ## Was hier hineingehört
 
